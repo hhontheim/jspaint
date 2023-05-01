@@ -1,0 +1,17 @@
+---
+version: "3"
+services:
+  jspaint:
+    build: .
+    networks:
+      - link
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.jspaint.rule=Host(`jspaint.hontheim.dev`) || Host(`paint.hontheim.dev`)"
+      - "traefik.http.routers.jspaint.entrypoints=websecure"
+      # - "traefik.http.routers.jspaint.middlewares=chain-no-auth@file"
+      - "traefik.http.routers.jspaint.middlewares=chain-basic-auth@file"
+
+networks:
+  link:
+    external: true
